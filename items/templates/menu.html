@@ -1,0 +1,190 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width= device-width, initial-scale=1.0">
+  <title>Menu</title>
+  <link rel="stylesheet" href="{% static 'css/button.css' %}">
+  <script src="https://kit.fontawesome.com/ad6dddada5.js" crossorigin="anonymous"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhai+2:wght@400;700&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+  <!--For the Welcome to the site -->
+  <div class="menu-wrap">
+    <input type="checkbox" class="toggler">
+    <!--Toggle only works with the checkbox so -->
+    <div class="hamburger">
+      <div></div>
+    </div>
+    <div class="menu">
+      <div>
+        <div>
+          <ul>
+            <li> <a href="index.html"> Home </a></li>
+            <li> <a href="menu.html"> Menu </a></li>
+            <li> <a href="reservation.html"> Reservations </a></li>
+            <li> <a href="reservation.html"> Events </a></li>
+            <li> <a href="contact.html"> Contact </a> </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- For the hamburger menu -->
+  <header class="showcase">
+    <div class="navbar">
+      <button onclick="Wel()" class="ty" id="WEL"> LoggedIn </button>
+      <a href="reservation.html" class="ty"> Reservations </a>
+    </div>
+    <div class=" container showcase-inner">
+      <h1> MENU </h1>
+      <p>
+        We bring you an opportunity to enjoy the essence of an interactive website.
+        Here, we let you all enjoy the moment to get in touch with all the amazing feature that will serve
+        you the best. Here, we allow you to use the customaizable theme that you can use for the special occassion
+        to make your special one more special and make those moments special.
+      </p>
+      <ul>
+        <li> <a href="#" class="butn"> Choose From </a></li>
+        <ul class="hoverOn">
+          <li><a href="#starter" class="butn"> Appetizer</a>
+            <!--<ol>
+            <a href="#" class="butn"> Mushroom</a>
+          </ol>-->
+          </li>
+          <li><a href="#appetizer" class="butn"> Main Course </a></li>
+          <!-- IDEA : adding the menu inside it as nested-->
+          <li><a href="#drink" class="butn"> Drinks </a> </li>
+          <li><a href="#dessert" class="butn"> Dessert </a></li>
+        </ul>
+      </ul>
+    </div>
+  </header>
+  <div class="starter">
+
+    <a name="starter" class="starter1"> Appetizer</a>
+    <div id="c1" class="container">
+      {% for item in items %}
+      {% if item.item_type == 'Appetizer' %}        
+        <div class="card1">
+          <img src="{{ item.image.url }}" alt="{{item.name}}" class="card_image">
+
+          <div class="card_content">
+            <h2>{{ item.name }}</h2>
+          </div>
+          <div class="description">
+            Rs. {{ item.price }}
+          </div>
+          <button id="add">+</button>
+          <input type="number" placeholder="quantity">
+          <button id="sub">-</button>
+          <div class="order">
+            <a href="#" class="ordernow">ORDER NOW</a>
+          </div>
+        </div>
+      {% endif %}
+      {% endfor %}
+    </div>
+    
+  </div>
+
+
+  <div class="maincourse">
+    <a name="maincourse" class="maincourse1">Main Course </a>
+
+    <div id="c1" class="container">
+      {% for item in items %}
+      {% if item.item_type == 'Main Course' %}        
+        <div class="card1">
+          <img src="{{ item.image.url }}" alt="{{item.name}}" class="card_image">
+
+          <div class="card_content">
+            <h2>{{ item.name }}</h2>
+          </div>
+          <div class="description">
+            Rs. {{ item.price }}
+          </div>
+          <button id="add">+</button>
+          <input type="number" placeholder="quantity">
+          <button id="sub">-</button>
+          <div class="order">
+            <a href="#" class="ordernow">ORDER NOW</a>
+          </div>
+        </div>
+      {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+    <div class="Drink">
+
+      <a name="drink" class="drink1"> Drinks </a>
+
+      <div id="c1" class="container">
+        {% for item in items %}
+        {% if item.item_type == 'Drinks' %}        
+          <div class="card1">
+            <img src="{{ item.image.url }}" alt="{{item.name}}" class="card_image">
+
+            <div class="card_content">
+              <h2>{{ item.name }}</h2>
+            </div>
+            <div class="description">
+              Rs. {{ item.price }}
+            </div>
+            <button id="add">+</button>
+            <input type="number" placeholder="quantity">
+            <button id="sub">-</button>
+            <div class="order">
+              <a href="#" class="ordernow">ORDER NOW</a>
+            </div>
+          </div>
+        {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="Dessert">
+
+      <a name="dessert" class="dessert"> Dessert </a>
+
+      <div id="c1" class="container">
+        {% for item in items %}
+        {% if item.item_type == 'Dessert' %}        
+          <div class="card1">
+            <img src="{{ item.image.url }}" alt="{{item.name}}" class="card_image">
+
+            <div class="card_content">
+              <h2>{{ item.name }}</h2>
+            </div>
+            <div class="description">
+              Rs. {{ item.price }}
+            </div>
+            <button id="add">+</button>
+            <input type="number" placeholder="quantity">
+            <button id="sub">-</button>
+            <div class="order">
+              <a href="#" class="ordernow">ORDER NOW</a>
+            </div>
+          </div>
+        {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+
+
+  <!--footer for app integration-->
+  <section id="social_icons">
+
+    <a href="#"><i class="fab fa-facebook facebook"></i></a>
+    <a href="#"><i class="fab fa-instagram instagram"></i></a>
+  </section>
+</body>
+
+</html>
+</body>
+
+</html>

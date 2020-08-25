@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="../js/reservation.js" async=""></script>
+    <link href="https://fonts.googleapis.com/css2?family=Courgette&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cookie&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Courgette&family=Old+Standard+TT&family=Rokkitt:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cookie&family=Yantramanav:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Grenze+Gotisch:wght@200&display=swap" rel="stylesheet">
+    <link href="../css/reservation.css" rel="stylesheet">
+    <style>
+        #calender{
+            width:80%;
+            margin-left:10% ;
+            margin-top: 60px;
+            text-align: center;
+        }
+        .calendarTable{
+            width: 50%;
+            border: 1px solid black;
+            text-align: center;
+        }
+        .calendarTable thead tr th{
+            background: black;
+            color:white;
+            border-bottom:4px black;
+            padding: 2 rem;
+            margin-bottom: 20px;
+           
+        }
+        .calendarTable tr td{
+            text-align: center;
+            padding: 22px 0px;
+            border: 1px dashed black;
+            background: rgba(206, 194, 194, 0.5);
+         
+        }
+        .calendarButns{
+           padding: 12px 10px;
+           width : 100%;
+        }
+        .calendarButns button{
+            padding:6px;
+            border-radius:2 rem;
+            background:black;
+            color:white;
+            z-index:2;
+            box-shadow: 4px grey,
+                        3px grey;
+            font-size: 18px;
+            cursor:pointer;
+        }
+        .calendarDiv{
+            display:none;
+        }
+        #calendarTable_1{
+            display: block;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="menu-wrap">
+        <input type="checkbox" class="toggler">  <!--Toggle only works with the checkbox so -->
+        <div class="hamburger"><div></div></div>
+        <div class="menu">
+            <div>
+                <div>
+                    <ul>
+                        <li> <a href= "index.html">  Home </a></li>
+                        <li> <a href= "menu.html"> Menu  </a></li>
+                        <li> <a href= "reservation.html"> Reservations </a></li>
+                        <li> <a href= "reservation.html"> Events  </a></li>
+                        <li> <a href= "contact.html"> Contact </a> </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <header class="showcase">
+        <div class="navbar">
+        <a href="#" class="ty" id="button"> Logged In As: Name </a>
+        
+        </div>   
+        <div class =" container showcase-inner">
+           <h1>   Reservations and Events </h1>
+            <p>
+                We bring you an opportunity to enjoy the essence of an interactive website. You can check the date from the calendar,
+                enjoy the facility of choosing the table according to the number of the people and book your date and time from the
+                calendar. 
+                Here, we allow you to use the customaizable theme that you can use for the special occassion
+                to make your special one more special and make those moments special.    
+           </p>
+           <a href="#" class="butn"> Scroll Down </a>
+           <h1 class="for">Select the Table For:</h1>
+            <select class="select">
+            <option value="Select the Table for:"> Select from here </option>
+            <option value="Table for 2">Table For 2 </option>
+            <option value="Table for 4"> Table For 4 </option>
+            <option value="Table for 6"> Table For 6 </option>
+            </select>  
+        </div>
+    </header>
+    <div class="main_Content">
+        
+        <h1>Reservations</h1>
+        <div id="calendar"></div>
+        <h1>Events </h1>
+        <ul>
+            <li>Birthday   <!--Parent item -->
+                <ul>
+                    <li>Gold </li>       <!--CHild Item-->
+                    <li>Silver </li>
+                    <li> Platinum </li>
+                </ul>
+            </li>
+        </ul>
+        <br>
+        <ul>
+            <li>Date
+                <ul>
+                    <li>Gold </li>
+                    <li>Silver </li>
+                    <li> Platinum </li>
+                </ul>
+            </li>
+        </ul>
+        <br>
+        <ul>
+            <li>Anniversary
+                <ul>
+                    <li>Gold </li>
+                    <li>Silver </li>
+                    <li> Platinum </li>
+                </ul>
+            </li>
+        </ul>
+
+    <!--Menu Button -->
+    <div class="menu_btn">
+        <h1> Menu </h1>
+        <a href="menu.html">Pre-order </a>
+    </div>
+
+
+    <!--Payment Section-->
+    <div class="payment" id="payment1">
+        <h1 class="mypara"> Payment </h1>
+        <form id="one" action ="/" method="GET">
+            <div class="wrap-2">
+                <h1 class="form_1"> Pay with e-sewa 
+                    <img src="images/sewal.png" alt="logo">
+                </h1>
+                
+                <label name ="name">Email</label>
+                <input type="email" id="Name" name="name" placeholder="some@example.com" required/>
+                
+                <label name ="card_Number"> Card Number </label>
+                <input type="password" id="Card_Number" name="card_Number"placeholder="**********"/>
+                
+                <label name="sure">Are you sure?</label>
+                <input type="checkbox" name="sure"> 
+                
+                <label name="sure">Credit Card </label>
+                <input type="radio" name="sure"> 
+                <label name="sure">Debit Card </label>
+                <input type="radio" name="sure"> 
+            
+                <button> Click Me </button>
+                <button> Cancel </button>
+            </div>
+        </form>
+    
+        <form id="two" action ="/" method="GET">
+           <div class="wrap-1">
+                <h1 class="form_1"> Pay with Khalti  
+                    <img  src="images/khlti.png">
+                </h1>
+               
+                <label name ="name">Email</label>
+            
+                <input type="email" id="Name" name="name" placeholder="some@example.com" required/>
+                
+                <label name ="card_Number"> Card Number </label>
+                <input type="password" id="Card_Number" name="card_Number"placeholder="**********" required/>
+                
+                <label name="sure">Are you sure?</label>
+                <input type="checkbox" name="sure" required> 
+                
+                <label name="sure">Credit Card </label>
+                <input type="radio" name="sure"> 
+                <label name="sure">Debit Card </label>
+                <input type="radio" name="sure"> 
+                
+                <button> Click Me </button>
+                <button> Cancel </button>
+            </div>
+        </form>
+    </div>
+</div>    
+</body>
+</html>
