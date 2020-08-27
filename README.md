@@ -20,4 +20,6 @@ Things accomplished:
     For booking event
       (Thinking to create a newtable called BookEvent)
     
-hi 
+3. Made separate apps: Registration for Customers account, Events for handling events and Reservation for handling reservations, Items(already existing) for handling orders
+
+    Also, kept related models (already created and messed up in items app)in the related apps
