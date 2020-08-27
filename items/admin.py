@@ -7,7 +7,7 @@ class CustomerAdmin(admin.ModelAdmin):
     
 
 class ItemAdmin(admin.ModelAdmin):
-    list_display = ('name', 'price', 'item_type', 'about_item')
+    list_display = ('name', 'price', 'item_type', 'about_item', 'image')
 
 
 class TableAdmin(admin.ModelAdmin):
@@ -27,7 +27,7 @@ class OrderDetailsAdmin(admin.ModelAdmin):
 
 
 class EventAdmin(admin.ModelAdmin):
-    list_display = ('name', 'decoration_type', 'decoration_cost')
+    list_display = ('name', 'decoration_type', 'decoration_cost', 'decoration_description')
 
 
 # Register your models here.

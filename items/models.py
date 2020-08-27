@@ -34,10 +34,11 @@ class Event(models.Model):
     decoration_type_choices = (
         ('Platinum', 'Platinum'),
         ('Gold', 'Gold'),
-        ('Silver', 'Gold'),
+        ('Silver', 'Silver'),
     )
     decoration_type = models.CharField(max_length=20, choices=decoration_type_choices, null=True, blank=True)
-    decoration_cost = models.FloatField()
+    decoration_cost = models.FloatField(null=True, blank=True)
+    decoration_description = models.TextField(null=True, blank=True)
 
 
 
