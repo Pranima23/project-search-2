@@ -34,6 +34,7 @@ window.addEventListener('scroll', () => {
     border.style.width = `${scroll / (sectionY.top + section_height) * 30}%`;
 })
 
+/*
 
 document.getElementById("button").addEventListener("click",
 function(){
@@ -54,6 +55,8 @@ document.querySelector(".emptys").addEventListener("click",
 function(){
     document.querySelector(".popup1").style.display ="none";
 })
+
+*/
 
 function Appear(){
     var message= document.getElementById("button3");

@@ -6,7 +6,7 @@ from reservation.models import *
 class Item(models.Model):
     name = models.CharField(max_length=50)
     price = models.FloatField()
-    about_item = models.TextField()
+    about_item = models.TextField(max_length=200, default='', null=True, blank=True)
     image = models.ImageField(upload_to='item_image', blank=True)
     item_type_choices = (
         ('Appetizer', 'Appetizer'),

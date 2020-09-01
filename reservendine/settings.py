@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'items.apps.ItemsConfig',
     'registration.apps.RegistrationConfig',
     'events.apps.EventsConfig',
+    'reservation.apps.ReservationConfig',
 ]
 
 MIDDLEWARE = [

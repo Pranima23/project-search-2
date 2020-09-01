@@ -7,7 +7,9 @@
   <meta name="viewport" content="width= device-width, initial-scale=1.0">
   <title>Menu</title>
   <link rel="stylesheet" href="{% static 'css/button.css' %}">
+  <script src="{% static 'js/menu.js' %}"></script>
   <script src="https://kit.fontawesome.com/ad6dddada5.js" crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/98392c7a0e.js" crossorigin="anonymous"></script>
   <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhai+2:wght@400;700&display=swap" rel="stylesheet">
 
 </head>
@@ -24,8 +26,8 @@
       <div>
         <div>
           <ul>
-            <li> <a href="index.html"> Home </a></li>
-            <li> <a href="menu.html"> Menu </a></li>
+            <li> <a href="{% url 'index' %}"> Home </a></li>
+            <li> <a href="{% url 'items:menu' %}"> Menu </a></li>
             <li> <a href="reservation.html"> Reservations </a></li>
             <li> <a href="reservation.html"> Events </a></li>
             <li> <a href="contact.html"> Contact </a> </li>
@@ -37,8 +39,18 @@
   <!-- For the hamburger menu -->
   <header class="showcase">
     <div class="navbar">
-      <button onclick="Wel()" class="ty" id="WEL"> LoggedIn </button>
-      <a href="reservation.html" class="ty"> Reservations </a>
+      {% if request.session.customer %}
+            <button onclick="Wel()" class="ty" id="WEL"> LoggedIn </button>
+            <a href="{% url 'items:cart' %}" class="ty" id="WEL"> Cart
+                <i class="fas fa-cart-plus"></i>
+                </button>
+            <a href="#" class="ty" id="button1"> LogOut</a>
+            {% else %}
+            <a href="#" class="ty" id="button"> LogIn </a>
+            <a href="#" class="ty" id="button1"> SignUp</a>
+            {% endif %}
+
+        <a href="reservation.html" class="ty"> Reservations </a>
     </div>
     <div class=" container showcase-inner">
       <h1> MENU </h1>
@@ -64,84 +76,95 @@
       </ul>
     </div>
   </header>
-  <div class="starter">
+  <div class="container">
 
     <a name="starter" class="starter1"> Appetizer</a>
-    <div id="c1" class="container">
-      {% for item in items %}
-      {% if item.item_type == 'Appetizer' %}        
-        <div class="card1">
-          <img src="{{ item.image.url }}" alt="{{item.name}}" class="card_image">
+    {% for item in items %}
+    {% if item.item_type == 'Appetizer' %}
 
-          <div class="card_content">
-            <h2>{{ item.name }}</h2>
-          </div>
-          <div class="description">
-            Rs. {{ item.price }}
-          </div>
-          <button id="add">+</button>
-          <input type="number" placeholder="quantity">
-          <button id="sub">-</button>
-          <div class="order">
-            <a href="#" class="ordernow">ORDER NOW</a>
-          </div>
+    <div class="card1" id="{{ item.id }}">
+      <img src="{{ item.image.url }}" alt="{{item.name}}" class="card_image">
+
+      <div class="card_content">
+        <h2>{{ item.name }}</h2>
+      </div>
+      <div class="description">
+        Rs.{{ item.price }}
+      </div>
+
+      <form action="#{{ item.id }}" , method="POST">
+        {% csrf_token %}
+        <input hidden type="text" name="item" value="{{ item.id }}">
+        <input type="number" name="quantity" placeholder="quantity" value="quantity">
+        <div class="order">
+          <input type="submit" value="Add to Cart" onclick="call1()" id="ordernow1">
+          <!--<a href="#" class="ordernow">Add to Cart </a>-->
         </div>
-      {% endif %}
-      {% endfor %}
+      </form>
+
+
     </div>
-    
+
+    {% endif %}
+    {% endfor %}
+
   </div>
 
 
   <div class="maincourse">
     <a name="maincourse" class="maincourse1">Main Course </a>
 
-    <div id="c1" class="container">
+    <div id="b1" class="container">
       {% for item in items %}
-      {% if item.item_type == 'Main Course' %}        
-        <div class="card1">
+      {% if item.item_type == 'Main Course' %}
+      <div class="card1" id="{{ item.id }}">
+        <img src="{{ item.image.url }}" alt="{{item.name}}" class="card_image">
+
+        <div class="card_content">
+          <h2>{{ item.name }}</h2>
+        </div>
+        <div class="description">
+          Rs.{{ item.price }}
+        </div>
+        <form action="#{{ item.id }}" , method="POST">
+          {% csrf_token %}
+          <input hidden type="text" name="item" value="{{ item.id }}">
+          <input type="number" name="quantity" placeholder="quantity" value="quantity">
+          <div class="order">
+            <input type="submit" value="Add to Cart" onclick="call1()" id="ordernow1">
+            <!--<a href="#" class="ordernow">Add to Cart </a>-->
+          </div>
+        </form>
+      </div>
+      {% endif %}
+      {% endfor %}
+    </div>
+    <div class="Drink">
+
+      <a name="drink" class="drink1"> Drink </a>
+
+      <div id="b1" class="container">
+        {% for item in items %}
+        {% if item.item_type == 'Drinks' %}
+        <div class="card1" id="{{ item.id }}">
           <img src="{{ item.image.url }}" alt="{{item.name}}" class="card_image">
 
           <div class="card_content">
             <h2>{{ item.name }}</h2>
           </div>
           <div class="description">
-            Rs. {{ item.price }}
+            Rs.{{ item.price }}
           </div>
-          <button id="add">+</button>
-          <input type="number" placeholder="quantity">
-          <button id="sub">-</button>
-          <div class="order">
-            <a href="#" class="ordernow">ORDER NOW</a>
-          </div>
-        </div>
-      {% endif %}
-      {% endfor %}
-    </div>
-  </div>
-    <div class="Drink">
-
-      <a name="drink" class="drink1"> Drinks </a>
-
-      <div id="c1" class="container">
-        {% for item in items %}
-        {% if item.item_type == 'Drinks' %}        
-          <div class="card1">
-            <img src="{{ item.image.url }}" alt="{{item.name}}" class="card_image">
-
-            <div class="card_content">
-              <h2>{{ item.name }}</h2>
-            </div>
-            <div class="description">
-              Rs. {{ item.price }}
-            </div>
-            <button id="add">+</button>
-            <input type="number" placeholder="quantity">
-            <button id="sub">-</button>
+          <form action="#{{ item.id }}" , method="POST">
+            {% csrf_token %}
+            <input hidden type="text" name="item" value="{{ item.id }}">
+            <input type="number" name="quantity" placeholder="quantity" value="quantity">
             <div class="order">
-              <a href="#" class="ordernow">ORDER NOW</a>
+              <input type="submit" value="Add to Cart" onclick="call1()" id="ordernow1">
+              <!--<a href="#" class="ordernow">Add to Cart </a>-->
             </div>
-          </div>
+          </form>
+        </div>
         {% endif %}
         {% endfor %}
       </div>
@@ -153,27 +176,31 @@
 
       <div id="c1" class="container">
         {% for item in items %}
-        {% if item.item_type == 'Dessert' %}        
-          <div class="card1">
-            <img src="{{ item.image.url }}" alt="{{item.name}}" class="card_image">
+        {% if item.item_type == 'Dessert' %}
+        <div class="card1" id="{{ item.id }}">
+          <img src="{{ item.image.url }}" alt="{{item.name}}" class="card_image">
 
-            <div class="card_content">
-              <h2>{{ item.name }}</h2>
-            </div>
-            <div class="description">
-              Rs. {{ item.price }}
-            </div>
-            <button id="add">+</button>
-            <input type="number" placeholder="quantity">
-            <button id="sub">-</button>
-            <div class="order">
-              <a href="#" class="ordernow">ORDER NOW</a>
-            </div>
+          <div class="card_content">
+            <h2>{{ item.name }}</h2>
           </div>
+          <div class="description">
+            Rs.{{ item.price }}
+          </div>
+          <form action="#{{ item.id }}" , method="POST">
+            {% csrf_token %}
+            <input hidden type="text" name="item" value="{{ item.id }}">
+            <input type="number" name="quantity" placeholder="quantity" value="quantity">
+            <div class="order">
+              <input type="submit" value="Add to Cart" onclick="call1()" id="ordernow1">
+              <!--<a href="#" class="ordernow">Add to Cart </a>-->
+            </div>
+          </form>
+        </div>
         {% endif %}
         {% endfor %}
       </div>
     </div>
+  </div>
 
 
   <!--footer for app integration-->
@@ -182,6 +209,8 @@
     <a href="#"><i class="fab fa-facebook facebook"></i></a>
     <a href="#"><i class="fab fa-instagram instagram"></i></a>
   </section>
+
+  <script src="{% static 'js/menu.css' %}"></script>
 </body>
 
 </html>
