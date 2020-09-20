@@ -1,0 +1,110 @@
+.container{
+    width: 90%;
+    align-content: center;
+    margin: 80px auto;
+    border: 1px solid lightgrey;
+    box-shadow:2px 2px 10px #000;
+    margin-top: 100px;
+}
+h1 {text-align: center;}
+
+table{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+
+thead{
+    text-align: left;
+    padding: 5px;
+    color: black;
+    background: lavenderblush;
+
+}
+td
+{
+    padding:10px 5 px;
+    text-align: center;
+}
+td input{
+    width: 40px;
+    height: 30px;
+    padding:5px;
+
+}
+tfoot{
+    text-align: left;
+    padding: 5px;
+    color: black;
+}
+.b1{
+    background-color: #fb2525;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    margin-left: 70%;
+    
+   
+    
+}
+.b2{
+    background-color: #fb2525;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    
+}
+
+.b1:hover ,.b2:hover
+{
+  cursor: pointer;
+  background: #5bf060;
+  color: #000;
+}
+
+.b1 a ,.b2 a{
+    text-decoration: none;
+    color:#fff;
+    
+}
+.b1 a:hover ,.b2 a:hover{
+    color: #000;
+}
+.container-events{
+    width: 90%;
+    align-content: center;
+    margin: 80px auto;
+    border: 1px solid lightgrey;
+    box-shadow:2px 2px 10px #000;
+    margin-top: 100px;
+}
+.container-events table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.container-events table thead{
+
+    text-align:left;
+    padding: 20px;
+    color: black;
+    background:lavenderblush
+
+}
+.container-events table td
+{
+    padding:10px 5 px;
+}

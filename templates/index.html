@@ -57,7 +57,7 @@
                         <li> <a href="{% url 'index' %}"> Home </a></li>
                         <li> <a href="{% url 'items:menu' %}"> Menu </a></li>
                         <li> <a href="index.html"> Reservations </a></li>
-                        <li> <a href="index.html"> Events </a></li>
+                        <li> <a href="{% url 'events:events' %}"> Events </a></li>
                         <li> <a href="index.html"> Contact </a> </li>
                     </ul>
                 </div>
@@ -69,10 +69,10 @@
         <div class="navbar">
             {% if request.session.customer %}
             <button onclick="Wel()" class="ty" id="WEL"> LoggedIn </button>
-            <a href="{% url 'items:cart' %}" class="ty" id="WEL"> Cart
+            <a href="{% url 'payment:cart' %}" class="ty" id="WEL"> Cart
                 <i class="fas fa-cart-plus"></i>
                 </button>
-            <a href="/logout" class="ty" id="button1"> LogOut</a>
+            <a href="/logout" class="ty" id="button"> LogOut</a>
             {% else %}
             <a href="{% url 'login' %}" class="ty" id="button"> LogIn </a>
             <a href="{% url 'signup' %}" class="ty" id="button1"> SignUp</a>

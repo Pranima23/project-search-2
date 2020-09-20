@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .models import Item
+from registration.models import Customer
+from .models import Item, OrderDetails, Order
+from events.models import *
+
 
 # Create your views here.
 def index(request):
@@ -40,5 +43,3 @@ def index(request):
         return render(request, 'menu.html', {'items': items})
             
 
-def cart(request):
-    return render(request, 'final.html')

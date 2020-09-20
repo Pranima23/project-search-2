@@ -1,0 +1,191 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://kit.fontawesome.com/ad6dddada5.js" crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/98392c7a0e.js" crossorigin="anonymous"></script>
+  <link href="{% static 'css/event.css' %}" rel="stylesheet">
+  <title>Events </title>
+</head>
+
+<body>
+  <div class="menu-wrap">
+    <input type="checkbox" class="toggler">
+    <!--Toggle only works with the checkbox so -->
+    <div class="hamburger">
+      <div></div>
+    </div>
+    <div class="menu">
+      <div>
+        <div>
+          <ul>
+            <li> <a href="{% url 'index' %}"> Home </a></li>
+            <li> <a href="{% url 'items:menu' %}"> Menu </a></li>
+            <li> <a href="index.html"> Reservations </a></li>
+            <li> <a href="/events/"> Events </a></li>
+            <li> <a href="index.html"> Contact </a> </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <header class="showcase">
+    <div class="navbar">
+      {% if request.session.customer %}
+      <button onclick="Wel()" class="ty" id="WEL"> LoggedIn </button>
+      <a href="{% url 'payment:cart' %}" class="ty" id="WEL"> Cart
+          <i class="fas fa-cart-plus"></i>
+          </button>
+      <a href="/logout" class="ty" id="button"> LogOut</a>
+      {% else %}
+      <a href="{% url 'login' %}" class="ty" id="button"> LogIn </a>
+      <a href="{% url 'signup' %}" class="ty" id="button1"> SignUp</a>
+      {% endif %}
+      
+      <button onclick="Appear()" class="ty" id="button3"> Reservations </button>
+  </div>
+    <div class=" container showcase-inner">
+      <h1> EVENTS </h1>
+      <p>
+        We bring you an opportunity to enjoy the essence of an interactive website.
+        Here, we let you all enjoy the moment to get in touch with all the amazing feature that will serve
+        you the best. Here, we allow you to use the customaizable theme that you can use for the special occassion
+        to make your special one more special and make those moments special.
+      </p>
+      <ul>
+        <li> <a href="#" class="butn"> Choose From </a></li>
+        <ul class="hoverOn">
+          <li><a href="#Birthday" class="butn"> Birthday </a>
+            <!--<ol>
+                  <a href="#" class="butn"> Mushroom</a>
+                </ol>-->
+          </li>
+          <li><a href="#Anni" class="butn"> Anniversary </a></li> <!-- IDEA : adding the menu inside it as nested-->
+          <li><a href="#Date" class="butn"> Date </a> </li>
+        </ul>
+      </ul>
+    </div>
+  </header>
+  <div class="container">
+
+    <a name="Birthday" class="starter1"> Birthday </a>
+
+    {% for event in events %}
+    {% if event.name == 'Birthday' %}
+    <div class="card1" id="{{ event.id }}">
+      <img src="{{ event.event_image.url }}" alt="{{ event.name }}" class="card_image">
+
+      <div class="card_content">
+        <h2> {{ event.decoration_type }} </h2>
+      </div>
+      <div class="description">
+        Rs.{{ event.decoration_cost }} Extra
+      </div>
+
+
+      <div class="information">
+        <!--<input type="button" value="Description" onclick="Gold()" id="describe">-->
+        <!--<a href="#" class="ordernow">Add to Cart </a>-->
+        Description
+      </div>
+      <div class=hideinfo>
+        {{ event.decoration_description }}
+      </div>
+      <div class="order">
+        <form action="#{{ event.id }}" method="POST">
+          {% csrf_token %}
+          <input hidden type="text" name="event" value="{{ event.id }}">
+          <input type="submit" value="Add to Cart" onclick="call1()" id="ordernow1">
+        </form>
+        <!--<a href="#" class="ordernow">Add to Cart </a>-->
+      </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+
+  </div>
+
+  <div class="maincourse">
+    <a name="Anni" class="maincourse1"> Anniversary </a>
+
+    <div id="b1" class="container">
+      {% for event in events %}
+      {% if event.name == 'Anniversary' %}
+      <div class="card1" id="{{ event.id }}">
+        <img src="{{ event.event_image.url }}" alt="{{ event.name }}" class="card_image">
+
+        <div class="card_content">
+          <h2> {{ event.decoration_type }} </h2>
+        </div>
+        <div class="description">
+          Rs.{{ event.decoration_cost }} Extra
+        </div>
+
+
+        <div class="information">
+          <!--<input type="button" value="Description" onclick="Gold()" id="describe">-->
+          <!--<a href="#" class="ordernow">Add to Cart </a>-->
+          Description
+        </div>
+        <div class=hideinfo>
+          {{ event.decoration_description }}
+        </div>
+        <div class="order">
+          <form action="#{{ event.id }}" method="POST">
+            {% csrf_token %}
+            <input hidden type="text" name="event" value="{{ event.id }}">
+            <input type="submit" value="Add to Cart" onclick="call1()" id="ordernow1">
+          </form>
+          <!--<a href="#" class="ordernow">Add to Cart </a>-->
+        </div>
+      </div>
+      {% endif %}
+      {% endfor %}
+    </div>
+    <div class="Drink">
+
+      <a name="Date" class="drink1"> Date </a>
+
+      <div id="b1" class="container">
+
+        {% for event in events %}
+        {% if event.name == 'Date' %}
+        <div class="card1" id="{{ event.id }}">
+          <img src="{{ event.event_image.url }}" alt="{{ event.name }}" class="card_image">
+
+          <div class="card_content">
+            <h2> {{ event.decoration_type }} </h2>
+          </div>
+          <div class="description">
+            Rs.{{ event.decoration_cost }} Extra
+          </div>
+
+
+          <div class="information">
+            <!--<input type="button" value="Description" onclick="Gold()" id="describe">-->
+            <!--<a href="#" class="ordernow">Add to Cart </a>-->
+            Description
+          </div>
+          <div class=hideinfo>
+            {{ event.decoration_description }}
+          </div>
+          <div class="order">
+            <form action="#{{ event.id }}" method="POST">
+              {% csrf_token %}
+              <input hidden type="text" name="event" value="{{ event.id }}">
+              <input type="submit" value="Add to Cart" onclick="call1()" id="ordernow1">
+            </form>
+            <!--<a href="#" class="ordernow">Add to Cart </a>-->
+          </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+    <script src="{% static 'js/description.js' %}"></script>
+</body>
+
+</html>

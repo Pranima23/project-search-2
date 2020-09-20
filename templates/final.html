@@ -1,50 +1,16 @@
 {% load static %}
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="{% static 'css/payment.css' %}" rel="stylesheet">
-    <title>final page</title>
+    <title>Payment</title>
 </head>
 <body>
-    <!--Payment section-->
-    
-    <button onclick="display()"> Click Me </button>
-    <p id="finalbt"></P>
-         <!--Payment Section-->
-    <div class="payment" id="payment1">
-        <h1 class="mypara"> Payment </h1>
-        <form id="one" action ="/" method="GET">
-            <form id="two" action ="/" method="GET">
-                <div class="loginbox1">
-                    <img  src="../images/sewal.png" class="avatar">
-                        <h1> e-sewa Users</h1>
-                        <form>
-                            <p>Username</p>
-                            <input type="text" name="" placeholder="Enter Username">
-                            <p>Card Number</p>
-                            <input type="password" name="" placeholder="Enter Card Number">
-                            <input type="submit" name="" value="Pay">
-                            <input type="reset" name="" value="Cancel">
-                        </form>
-                </div>
-          
-        </form>
-    
-        <form id="two" action ="/" method="GET">
-            <div class="loginbox">
-                <img  src="../images/khlti.png" class="avatar">
-                    <h1> Khalti Users </h1>
-                    <form>
-                        <p>Username</p>
-                        <input type="text" name="" placeholder="Enter Username">
-                        <p>Card Number</p>
-                        <input type="password" name="" placeholder="Enter Card Number">
-                        <input type="submit" name="" value="Pay">
-                        <input type="reset" name="" value="Cancel">
-                    </form>
-    </div>
-    <script src="../js/final.js"></script>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <input type="text" name="email" value="{{ request.session.email }}">
+        <input type="text" name="card_num" value="Your card number">
+        <input type="submit" value="Pay">
+    </form>
 </body>
 </html>

@@ -16,10 +16,14 @@ class Item(models.Model):
     )
     item_type = models.CharField(max_length = 20, choices = item_type_choices, default = '')
 
+    @staticmethod
+    def get_items_by_id(ids):
+        return Item.objects.filter(id__in = ids)
+
 
 class Order(models.Model):
-    reservation_detail = models.OneToOneField(Reservation, on_delete=models.CASCADE, null=True, blank=True)
-    complete = models.BooleanField(default=False, null=True, blank=True)
+    customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True, blank=True)
+    
 
     @property
     def get_order_total(self):

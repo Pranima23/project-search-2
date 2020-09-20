@@ -7,7 +7,7 @@ class ItemAdmin(admin.ModelAdmin):
 
 
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ('reservation_detail', 'complete')
+    list_display = ('customer',)
 
 
 class OrderDetailsAdmin(admin.ModelAdmin):
