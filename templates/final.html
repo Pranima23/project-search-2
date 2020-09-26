@@ -1,16 +1,79 @@
 {% load static %}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <link href="{% static 'css/final.css' %}" rel="stylesheet">
+ 
     <title>Payment</title>
+
 </head>
 <body>
-    <form action="" method="POST">
-        {% csrf_token %}
-        <input type="text" name="email" value="{{ request.session.email }}">
-        <input type="text" name="card_num" value="Your card number">
-        <input type="submit" value="Pay">
-    </form>
+    
+    <section>
+    <!--Payment section-->
+    
+         <!--Payment Section-->
+    <div class="payment" id="payment1">
+        <h1 class="mypara"> Payment </h1>
+        
+                <div class="loginbox1">
+                    <img  src="{% static 'images/sewal.png' %}" class="avatar">
+                        <h1> e-sewa Users</h1>
+                        <form action="" method="POST">
+                            {% csrf_token %}
+                            <p>Username</p>
+                            <input required type="text" placeholder="Enter Username">
+                            <p>Phone Number</p>
+                            <input required type="text" placeholder="Enter Phone Number">
+                            <input type="submit" value="Pay">
+                            <input type="reset" value="Cancel">
+                        </form>
+                </div>
+          
+        
+    
+        <form id="two" action ="/" method="GET">
+            <div class="loginbox">
+                <img  src="{% static 'images/khlti.png' %}" class="avatar">
+                    <h1> Khalti Users </h1>
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                        <p>Username</p>
+                        <input required type="text" placeholder="Enter Username">
+                        <p>Phone Number</p>
+                        <input required type="text" placeholder="Enter Phone Number">
+                        <input type="submit" value="Pay">
+                        <input type="reset" value="Cancel">
+                    </form>
+            </div>        
+        </form>            
+    </div>
+    <script src="{% static '/js/final.js' %}"></script>
+</section>
+
+{% for message in messages %}
+    
+        
+        <div class="alert">
+          <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+          <div class="msg">{{ message }}</div>
+        </div>
+    
+    {% endfor %}
+    <footer>
+        
+
+    <div class="bottom">
+        <div class="copy">
+            <span class="credit" ><a href="main.html">Reserve N' Dine|</a></span>
+            <span class="far fa-copyright"></span><span>2020 All rights reserved</span>
+        </div>
+    </div>
+</footer> 
 </body>
 </html>

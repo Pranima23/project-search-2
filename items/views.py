@@ -40,6 +40,20 @@ def index(request):
         print(request.session.get('customer'))
         print(request.session.get('email'))
         items = Item.objects.all()
-        return render(request, 'menu.html', {'items': items})
+        if request.session.get('cart') and request.session.get('cart_events'):
+            ids = list(request.session.get('cart').keys())
+            cart_items = Item.objects.filter(id__in = ids)
+            cart_book_events = Event.objects.filter(id__in = request.session.get('cart_events'))
+            return render(request, 'menu.html', {'items': items, 'cart_items': cart_items,'cart_book_events': cart_book_events})
+        if request.session.get('cart'):
+            ids = list(request.session.get('cart').keys())
+            cart_items = Item.objects.filter(id__in = ids)
+            return render(request, 'menu.html', {'items': items, 'cart_items': cart_items})
+        if request.session.get('cart_events'):
+            cart_book_events = Event.objects.filter(id__in = request.session.get('cart_events'))
+            return render(request, 'menu.html', {'items': items, 'cart_book_events': cart_book_events})
+        else:
+            return render(request, 'menu.html', {'items': items})
+        
             
 

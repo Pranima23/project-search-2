@@ -1,0 +1,66 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <link href="{% static 'css/button1.css' %}" rel="stylesheet">
+    <link href="{% static 'css/contact.css' %}" rel="stylesheet">
+    
+    
+   
+</head>
+<body>
+      <!--For the Welcome to the site -->
+  <div class="menu-wrap">
+    <input type="checkbox" class="toggler">  <!--Toggle only works with the checkbox so -->
+    <div class="hamburger"><div></div></div>
+    <div class="menu">
+        <div>
+            <div>
+                <ul>
+                    <li> <a href="{% url 'index' %}"> Home </a></li>
+                    <li> <a href="{% url 'items:menu' %}"> Menu </a></li>
+                    <li> <a href="index.html"> Reservations </a></li>
+                    <li> <a href="{% url 'events:events' %}"> Events </a></li>
+                    <li> <a href="/contact/"> Contact </a> </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+ <!-- For the hamburger menu -->
+
+  <div class="navbar">
+    {% if request.session.customer %}
+    <button onclick="Wel()" class="ty" id="WEL"> LoggedIn </button>
+    {% endif %}
+  <a href="reservation.html" class="ty"> Reservations </a>
+  </div>   
+  <!--contact details-->
+    <h1>Contact us</h1>
+        <div class="container-contact">
+            <div class="details">
+             Address:Kathmandu University<br><br>
+             Contact no: +977-9862274823,+977-9860840845,+977-9863329511,+977-9860341062<br><br>
+             Email:<a href="mailto:reservendine2020@gmail.com? subject=subject text">reservendine2020@gmail.com </a><br><br>
+             </div>   
+        </div> 
+    
+    <footer>
+      
+    <div class="bottom">
+        <div class="copy">
+            <span class="credit" ><a href="/">Reserve N' Dine </a></span>
+            <span class="far fa-copyright"></span><span>2020 All rights reserved</span>
+        </div>
+    </div>
+</footer>
+    
+</body>
+</html>

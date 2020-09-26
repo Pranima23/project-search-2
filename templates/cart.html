@@ -1,18 +1,67 @@
-{% load cart %}
 {% load static %}
+{% load cart %}
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="{% static 'css/cart.css' %}" rel="stylesheet">
+    <link href="{% static 'css/footer1.css' %}" rel="stylesheet">
+
     <title>Cart</title>
 </head>
 
 <body>
-    
-{% if request.session.cart %}
+    <!--For the Welcome to the site -->
+    <div class="menu-wrap">
+        <input type="checkbox" class="toggler">
+        <!--Toggle only works with the checkbox so -->
+        <div class="hamburger">
+            <div></div>
+        </div>
+        <div class="menu">
+            <div>
+                <div>
+                    <ul>
+                        <li> <a href="{% url 'index' %}"> Home </a></li>
+                        <li> <a href="{% url 'items:menu' %}"> Menu </a></li>
+                        <li> <a href="reservation.html"> Reservations </a></li>
+                        <li> <a href="{% url 'events:events' %}"> Events </a></li>
+                        <li> <a href="/contact/"> Contact </a> </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- For the hamburger menu -->
+
+    <div class="navbar">
+        <button onclick="Wel()" class="ty" id="WEL"> LoggedIn </button>
+        <a href="cart.html" class="ty" id="WEL"> Cart
+            <i class="fas fa-cart-plus"></i>
+            
+            <span>
+                {% if request.session.cart and request.session.cart_events %}
+                  {{ cart_book_events|first_arg:request.session.cart_events|second_arg:cart_items|count:request.session.cart }}
+                {% elif request.session.cart %}
+                  {{ cart_items|count_item:request.session.cart }}
+                {% elif request.session.cart_events %}
+                  {{ request.session.cart_events|count_event }}
+                {% else %}
+                    0
+                {% endif %}
+              </span>
+        </a>
+        <a href="reservation.html" class="ty"> Reservations </a>
+    </div>
+
+{% if request.session.cart or request.session.cart_events %}
+
+    {% if request.session.cart %}
     <div class="container">
         <h1>Your Orders</h1>
         <table>
@@ -34,10 +83,10 @@
                     <td>
                         <h5 class="qyantity">Quantity</h5>
                     </td>
+                    <td></td>
                     <td>
                         <h5 class="total">Total</h5>
                     </td>
-                    <td></td>
 
                 </tr>
             </thead>
@@ -48,36 +97,46 @@
                     <td>{{forloop.counter}}</td>
                     <td><img src="{{ cart_item.image.url }}" width="75px"></td>
                     <td>{{ cart_item.name }}</td>
-                    <td>Rs. {{ cart_item.price }}</td>                    
-                    <td>{{ cart_item|cart_quantity:request.session.cart }}</td>
-                    <td>Rs. {{ cart_item|item_total:request.session.cart }}</td>
+                    <td>Rs. {{ cart_item.price }}</td>
+                    <td>
+                        <form action="" method="POST">{% csrf_token %}
+                            <input type="hidden" name="item" value="{{ cart_item.id }}">
+                            <input type="submit" name="minus" value="-" class="minus" size="5">
+                        </form>
+                        <input type="text" value="{{ cart_item|cart_quantity:request.session.cart }}">
+                        <form action="" method="POST">{% csrf_token %}
+                            <input type="hidden" name="item" value="{{ cart_item.id }}">
+                            <input type="submit" value="+" class="add" size="5">
+                        </form>
+                    </td>
                     <td>
                         <form action="" method="POST">
                             {% csrf_token %}
-                            <input type="text" name="item" value="{{cart_item.id}}" hidden>
-                            <input type="submit" name="{{ cart_item.id }}" value="-" class="button b1">
+                            <input type="hidden" name="item" value="{{cart_item.id}}">
+                            <input type="hidden" name="todo" value="remove">
+                            <button class="button b2" type="submit">X</button>
                         </form>
                     </td>
+                    <td>Rs. {{ cart_item|item_total:request.session.cart }}</td>
+
                 </tr>
                 {% endfor %}
             </tbody>
             <tfoot>
-                <th colspan="4"></th>
-                <th>
-                    <h5>TOTAL</h5>
-                <th>
-                    <h5>Rs. {{ cart_items|order_total:request.session.cart }}</h5>
-                </th>
+                <th colspan="5"></th>
+                <th>TOTAL: </th>
+                <th>Rs. {{ cart_items|order_total:request.session.cart }}</th>
             </tfoot>
 
         </table>
-        <button class="button b1"><a href="/items/menu/">STILL HUNGRY!</a></button>
-        <button class="button b2"><a href="{% url 'payment:pay' %}">PAY</a></button>
+        <button class="button b1"><a href="{% url 'items:menu' %}">STILL HUNGRY!</a></button>
+
     </div>
-{% endif %}
-{% if request.session.cart_events %}
+    {% endif %}
+
+    {% if request.session.cart_events %}
     <div class="container-events">
-        <h1>Your Event</h1>
+        <h1>Events</h1>
         <table>
             <thead>
                 <tr>
@@ -94,10 +153,11 @@
                     <td>
                         <h5 class="description">Decoration Type</h5>
                     </td>
+                    <td></td>
                     <td>
                         <h5 class="price">Price</h5>
                     </td>
-                    <td></td>
+
                 </tr>
             </thead>
 
@@ -108,30 +168,114 @@
                     <td><img src="{{ cart_event.event_image.url }}" width="75px"></td>
                     <td>{{ cart_event.name }}</td>
                     <td>{{ cart_event.decoration_type }}</td>
-                    <td>Rs. {{ cart_event.decoration_cost }}</td>      
                     <td>
                         <form action="" method="POST">
                             {% csrf_token %}
-                            <input type="text" name="event" value="{{cart_event.id}}" hidden>
-                            <input type="submit" name="{{ cart_event.id }}" value="-" class="button b1">
+                            <input type="hidden" name="event" value="{{cart_event.id}}">
+                            <input type="hidden" name="todo" value="remove">
+                            <button class="button b2" type="submit">X</button>
                         </form>
-                    </td>              
+                    </td>
+                    <td>Rs. {{ cart_event.decoration_cost }}</td>
+
                 </tr>
                 {% endfor %}
+
             </tbody>
             <tfoot>
-                <th colspan="3"></th>
-                <th>
-                    <h5>TOTAL</h5>
-                
+                <th colspan="4"></th>
+                <th>TOTAL:</th>
+                <th>Rs. {{ cart_book_events|event_total:request.session.cart_events }}
+                </th>
             </tfoot>
 
         </table>
-        <button class="button b1"><a href="{% url 'events:events' %}">Events</a></button>
-        <button class="button b2"><a href="final.html">PAY</a></button>
-
+        <button class="button b3"><a href="{% url 'events:events' %}">Events</a></button>
     </div>
+    {% endif %}
+
+    <div class="grand-total">
+        <table>
+            {% if request.session.cart and request.session.cart_events %}
+            <tr>
+                <td><strong>GRAND TOTAL:</strong>
+                    Rs.
+                    {{ cart_book_events|first_arg:request.session.cart_events|second_arg:cart_items|my_filter:request.session.cart }}
+                </td>
+            </tr>
+            {% endif %}
+            <tr>
+                <td><button class="button b2"><a href="{% url 'payment:pay' %}">PAY</a></button></td>
+            </tr>
+        </table>
+    </div>
+{% else %}
+<div style="margin-top:150px; margin-bottom: 250px; text-align: center;" ><h2>Nothing to display in your cart.</h2></div>
 {% endif %}
+    <footer>
+        <div class="main-content">
+            <div class="left box">
+                <h2>About us</h2>
+                <div class="content">
+                    <p>We are the student from the fourth semester in Kathmandu University, presenting this dummy website as the part of the project!</p>
+                    <div class="social">
+                        <a href="#"><span class="fab fa-facebook facebook"></span> </a>
+                        <a href="https://www.instagram.com/reserve_n_dine/?igshid=1itha2ff8ewp8"><span
+                                class="fab fa-instagram instagram"></span> </a>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="center box">
+                <h2>Address</h2>
+                <div class="content">
+                    <div class="place">
+                        <span class="fas fa-map-marker-alt"></span>
+                        <span class="text">Kathmandu University, Kavre</span>
+                    </div>
+                    <div class="phone">
+                        <span class="fas fa-phone-alt"></span>
+                        <span class="text">+977-9860341062, +977-9862274823, +977-9860840845, +977-9863329511</span>
+                    </div>
+                    <div class="email">
+                        <a href="mailto:reservendine2020@gmail.com? subject=subject text"><span
+                                class="fas fa-envelope envelope"></span></a>
+                        <span class="text">reservendine2020@gmail.com</span>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="right box">
+                <h2>Contact us</h2>
+                <div class="content">
+                    <form action="#">
+                        <div class="email">
+                            <div class="text">Email *</div>
+                            <input type="email" required>
+                        </div>
+                        <div class="msg">
+                            <div class="text">Message *</div>
+                            <textarea name="name" row="8" cols="80" required></textarea>
+                        </div>
+                        <div class="btn">
+                            <button type="submit">Send</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="bottom">
+            <div class="copy">
+                <span class="credit"><a href="main.html">Reserve N' Dine|</a></span>
+                <span class="far fa-copyright"></span><span>2020 All rights reserved</span>
+            </div>
+        </div>
+    </footer>
 </body>
 
 </html>

@@ -9,6 +9,10 @@ def index(request):
     print(request.session.get('email'))
     return render(request, 'index.html')
     
+    
+def contact(request):
+    return render(request, 'contact.html')
+
 
 def signup(request):
     if request.method=='POST':
@@ -22,7 +26,7 @@ def signup(request):
         if password1==password2:
             if Customer.objects.filter(email=email).exists():
                 print('email already exists')
-                messages.info(request, 'email taken')
+                messages.info(request, 'Email already exists!')
                 return redirect('/signup/')                
             else:
                 customer = Customer.objects.create(
@@ -34,7 +38,7 @@ def signup(request):
                 customer.save()
             return redirect('/login/')  
         else:
-            messages.info(request, 'password not matched')
+            messages.info(request, 'Password not matched!')
             return redirect('/signup/')   
 
     else:
@@ -48,7 +52,10 @@ def login(request):
         password = request.POST['password']
 
         #checking if email is in database
-        customer = Customer.objects.get(email=email)
+        if not Customer.objects.get(email=email):
+            customer = None
+        else:
+            customer = Customer.objects.get(email=email)
         if customer:
             #checking if password matches
             if password == customer.password:
@@ -58,10 +65,10 @@ def login(request):
                 print(request.session['customer'])
                 return redirect('/')
             else:
-                messages.error(request, 'Invalid email or password')
+                messages.error(request, 'Invalid email or password!')
                 return redirect('login')
-        else:
-            messages.error(request, 'Invalid email or password')
+        if not customer:
+            messages.error(request, 'Invalid email or password!')
             return redirect('login')
 
     else:
@@ -71,3 +78,5 @@ def login(request):
 def logout(request):
     request.session.clear()
     return redirect('login')
+
+

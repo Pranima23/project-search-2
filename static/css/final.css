@@ -2,20 +2,27 @@
     margin:0px;
     padding:0px;
 }
+body{
+  font-family: 'Source Sans Pro', sans-serif;
 
+}
+section{
+  justify-content: center;
+}
 /*payment*/
 .payment{
     display:flex;
+    justify-content: center;
     margin: 12px;
     padding-bottom: 10%;
   }
   .mypara{
+    justify-content: center;
     font-size:40px;
-    color:rosybrown;
+    color:black;
     position: absolute;
-    top:13%;
-    left:1%;
   }
+
 
   .loginbox{
     width: 320px;
@@ -23,13 +30,13 @@
     background: #000;
     color: #fff;
     top: 50%;
-    left: 50%;
+    left: 60%;
     position: absolute;
-    top:55%;
-    left:40%;
+    
     transform: translate(-50%,-50%);
     box-sizing: border-box;
     padding: 70px 30px;
+    justify-content: center;
 }
 
 .avatar{
@@ -47,7 +54,10 @@ h1{
     text-align: center;
     font-size: 22px;
 }
-
+form{
+  justify-content: center;
+  margin-left: 20px;
+}
 .loginbox p{
     margin: 0;
     padding: 0;
@@ -111,13 +121,13 @@ h1{
   background: rgb(10, 10, 10);
   color: #fff;
   top: 50%;
-  left: 50%;
+  left: 30%;
   position: absolute;
-  top:55%;
-  left:12%;
+ 
   transform: translate(-50%,-50%);
   box-sizing: border-box;
   padding: 70px 30px;
+  justify-content: center;
 }
 
 .avatar{
@@ -189,4 +199,77 @@ h1{
 .loginbox1 a:hover
 {
   color: #ffc107;
+}
+
+
+footer{
+  position:absolute;
+  bottom: 0;
+  width: 100%;
+  background: #111;
+
+}
+
+
+.bottom .copy{
+  padding: 5px;
+  font-size: 0.9375rem;
+  background: #151515;
+  text-align: center;
+}
+.bottom .copy span{
+  color: #656565;
+}
+.bottom .copy a{
+  color: #f12020;
+  text-decoration: none;
+
+}
+.bottom .copy a:hover{
+  text-decoration: underline;
+}
+@media screen and (max-width:900px){
+  footer{
+      position: relative;
+      bottom: 0px;
+  }
+  .main-content{
+      flex-wrap: wrap;
+      flex-direction: column;
+  }
+  .main-content .box{
+      margin: 5px 0;
+  }
+}
+.alert {
+  text-align: center;
+  margin-top: 0px;
+  margin-left: 400px;
+  padding: 20px;
+  background-color: lightgreen;
+  color: white;
+  width: 400px;
+  height: 100px;
+  position: fixed;
+}
+
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.closebtn:hover {
+  color: black;
+}
+
+.msg{
+  margin-top: 25px ;
+  justify-content: center;
+  text-align: center;
 }

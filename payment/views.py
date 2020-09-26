@@ -1,24 +1,47 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from items.models import *
-from events.models import *
+from items.models import Item, Order, OrderDetails
+from events.models import Event, BookEvent
 from registration.models import *
+from django.contrib import messages
+
 # Create your views here.
 def cart(request):
     if request.method=='POST':
-        cart = request.session.get('cart')
-        remove_item = request.POST.get('item')
-        if cart:
-            if remove_item:
-                cart.pop(remove_item)
-                request.session['cart'] = cart
-        remove_event = request.POST.get('event')
-        cart_events = request.session.get('cart_events')
-        if cart_events:
-            if remove_event:
-                cart_events.remove(remove_event)
-                request.session['cart_events'] = cart_events
+        #to remove item from cart
+        if request.POST.get('todo') == 'remove':
+            cart = request.session.get('cart')
+            remove_item = request.POST.get('item')
+            if cart:
+                if remove_item:
+                    cart.pop(remove_item)
+                    request.session['cart'] = cart
+            remove_event = request.POST.get('event')
+            cart_events = request.session.get('cart_events')
+            if cart_events:
+                if remove_event:
+                    cart_events.remove(remove_event)
+                    request.session['cart_events'] = cart_events
+        #to alter quantity of item in cart
+        else:
+            item = request.POST.get('item')
+            minus = request.POST.get('minus')
+            cart = request.session.get('cart')
+            if cart:
+                quantity = cart.get(item)
+                if quantity:
+                    if minus:
+                        if quantity<=1:
+                            cart.pop(item)
+                        else:
+                            cart[item]  = quantity-1
+                    else:
+                        cart[item]  = quantity+1
+            request.session['cart'] = cart
+            print('cart' , request.session['cart'])
         return redirect('/payment/cart/')
+        
+        
 
     elif request.session.get('cart') and request.session.get('cart_events'):
         print('Event: ', request.session.get('cart_events'))
@@ -40,48 +63,48 @@ def cart(request):
         print(cart_book_events)
         return render(request, 'cart.html', {'cart_book_events': cart_book_events})
     else:
-        return HttpResponse('Nothing to display in cart.')
+        return render(request, 'cart.html')
 
 
 def pay(request):
     if request.method == 'POST':
-        #getting card number
-        card_num = request.POST.get('card_num')
-        print(card_num)
         #getting customer info
         customer = request.session.get('customer')
         #getting items in cart
         cart = request.session.get('cart')
-        #getting events in cart
-        cart_events = request.session.get('cart_events')
-        events = Event.get_events_by_id(cart_events)
-        items = Item.get_items_by_id(list(cart.keys()))
-        print('/////////////////////////')
-        print(customer, cart, items, events)
-        #saving food order to database
-        order = Order(
-            customer = Customer(
-                id = customer
-            )
-        )
-        order.save()
-        for item in items:
-            order_details = OrderDetails(
-                order = order,
-                item = item,
-                quantity = cart.get(str(item.id))
-            )
-            print(order_details.save())
-        request.session['cart'] = {}
-        for event in events:
-            booked_event = BookEvent.objects.create(
+        if cart:
+            items = Item.get_items_by_id(list(cart.keys()))
+            #saving ordered food to database
+            order = Order(
                 customer = Customer(
                     id = customer
-                ),
-                event = event
+                )
             )
-        booked_event.save()
-        request.session['cart_events'] = []
+            order.save()
+            for item in items:
+                order_details = OrderDetails(
+                    order = order,
+                    item = item,
+                    quantity = cart.get(str(item.id))
+                )
+                print(order_details.save())
+            request.session['cart'] = {}
+        #getting events in cart
+        cart_events = request.session.get('cart_events')
+        if cart_events:
+            events = Event.get_events_by_id(cart_events)
+            items = Item.get_items_by_id(list(cart.keys()))
+            #saving booked event to database
+            for event in events:
+                booked_event = BookEvent.objects.create(
+                    customer = Customer(
+                        id = customer
+                    ),
+                    event = event
+                )
+            booked_event.save()
+            request.session['cart_events'] = []
+        messages.info(request, "Transaction successful!")
         return render(request, 'final.html')
     else:
         return render(request, 'final.html')

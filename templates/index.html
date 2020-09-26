@@ -1,55 +1,23 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="{% static 'css/index.css' %}" rel="stylesheet" />
-    <link href="{% static 'css/menus.css' %}" rel="stylesheet" />
-
-    <script src="{% static 'js/menu.js' %}"></script>
-
-    <link href="https://fonts.googleapis.com/css2?family=Courgette&display=swap" rel="stylesheet">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Courgette&family=Old+Standard+TT&family=Rokkitt:wght@300&display=swap"
-        rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Grenze+Gotisch:wght@200&display=swap" rel="stylesheet">
+    <link href="{% static 'css/index.css' %}" rel="stylesheet"/>
+    <link href="{% static 'css/menus.css' %}" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/98392c7a0e.js" crossorigin="anonymous"></script>
-
-    <!-- <script>
-        document.getElementById("button").addEventListener("click",
-        function(){
-            document.querySelector(".popup").style.display ="flex";
-        })
-  
-        document.getElementById("button1").addEventListener("click",
-        function(){
-            document.querySelector(".popup1").style.display ="flex";
-        })
-  
-        document.querySelector(".empty").addEventListener("click",
-        function(){
-            document.querySelector(".popup").style.display ="none";
-        })
-  
-        document.querySelector(".emptys").addEventListener("click",
-        function(){
-            document.querySelector(".popup1").style.display ="none";
-        })
-    </script>-->
+    
     <title>Our Homepage </title>
 </head>
-
 <body>
+   
 
-    <!--For the Welcome to the site -->
+   <!--For the Welcome to the site -->
     <div class="menu-wrap">
-        <input type="checkbox" class="toggler">
-        <!--Toggle only works with the checkbox so -->
-        <div class="hamburger">
-            <div></div>
-        </div>
+        <input type="checkbox" class="toggler">  <!--Toggle only works with the checkbox so -->
+        <div class="hamburger"><div></div></div>
         <div class="menu">
             <div>
                 <div>
@@ -58,120 +26,150 @@
                         <li> <a href="{% url 'items:menu' %}"> Menu </a></li>
                         <li> <a href="index.html"> Reservations </a></li>
                         <li> <a href="{% url 'events:events' %}"> Events </a></li>
-                        <li> <a href="index.html"> Contact </a> </li>
+                        <li> <a href="/contact/"> Contact </a> </li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
-    <!-- For the hamburger menu -->
+ <!-- For the hamburger menu -->
     <header class="showcase">
         <div class="navbar">
-            {% if request.session.customer %}
-            <button onclick="Wel()" class="ty" id="WEL"> LoggedIn </button>
-            <a href="{% url 'payment:cart' %}" class="ty" id="WEL"> Cart
-                <i class="fas fa-cart-plus"></i>
-                </button>
-            <a href="/logout" class="ty" id="button"> LogOut</a>
-            {% else %}
-            <a href="{% url 'login' %}" class="ty" id="button"> LogIn </a>
-            <a href="{% url 'signup' %}" class="ty" id="button1"> SignUp</a>
-            {% endif %}
-            
-            <button onclick="Appear()" class="ty" id="button3"> Reservations </button>
-        </div>
-        <div class=" container showcase-inner">
-            <h1> WELCOME TO OUR SITE! </h1>
+            {% if not request.session.customer %}
+        <a href="{% url 'login' %}" class="ty" id="button"> LogIn </a>
+        <a href="{% url 'signup' %}" class="ty" id="button1"> SignUp</a>
+        {% else %}
+        <button onclick="Wel()" class="ty" id="WEL"> LoggedIn </button>
+        <a href="/logout" class="ty" id="button"> Log Out</a>
+        {% endif %}
+        <a href="reservation.html" class="ty"> Reservations </a>
+        </div>   
+        <div class =" container showcase-inner">
+           <h1>  WELCOME TO OUR SITE! </h1>
             <p>
                 We bring you an opportunity to enjoy the essence of an interactive website.
                 Here, we let you all enjoy the moment to get in touch with all the amazing feature that will serve
-                you the best. Here, we allow you to use the customaizable theme that you can use for the special
-                occassion
-                to make your special one more special and make those moments special.
-            </p>
-            <a href="#" class="butn"> Scroll Down </a>
+                you the best. Here, we allow you to use the customaizable theme that you can use for the special occassion
+                to make your special one more special and make those moments special.    
+           </p>
+           <a href="#" class="butn"> Scroll Down </a>
         </div>
     </header>
-
-    <div class="popup">
-        <div class="popup-rep">
-
-            <h2> Reserve N' Dine </h2>
-            <img src="{% static 'images/cross.jpg' %}" alt="close" class="empty" />
-            <input type="email" name="email" placeholder="Enter your e-mail " required>
-            <input type="password" name="password" placeholder="Enter your password" required>
-            <a href="main.html" class="ty" id="button"> LogIn</a>
-            Dont have an account? <a href="#">Sign up</a>
-        </div>
-    </div>
+<!---
+  <div class="popup">  
+    <div class="popup-rep">
+         
+              <h2> Reserve N' Dine </h2>
+              <img src="../images/cross.jpg" alt="close" class="empty"/>
+              <input type="text" placeholder="Enter your e-mail ">
+              <input type="password" placeholder="Enter your password">
+              <a href="main.html" class="ty" id="button"> LogIn</a> 
+      </div>
+  </div>
     <div class="popup1">
         <div class="popup1-rep">
-            <h2> Reserve N' Dine </h2>
-            <img src="{% static 'images/cross.jpg' %}" alt="close" class="emptys" />
+              <h2> Reserve N' Dine </h2>
+              <img src="../images/cross.jpg" alt="close" class="emptys"/>
+              <input type="text" placeholder="Enter Username" name="uname" required>
+              <input type="password" placeholder="Enter your password">
+              <a href="main.html" class="ty" id="button"> SignUp </a> 
+        </div>
+   </div>
+-->
+        <section>
+            <div class="shadow"></div>
+            <div class="container1">
+                    <div class="content opacity">
+                        <h3 class="title">
+                            Menu 
+                            <div class="border"></div>
+                        </h3>
+                        <p class="text"> We Nepalese are famous for our diversity, along with diversity comes various local cuisines.
+                            Serving you few amazing dishes from our Nepali Cuisine.
+                        </p>
+                        <a href="{% url 'items:menu' %}" class="ty"> Find More </a>
+                    </div>
+                    <div class="imgContainer opacity">
+                        <img src="{% static 'images/fod.webp' %}" alt="food item">
+                    </div>
+                    <div class="shadow1"></div>
+                <div class="content opacity1">
+                    <h3 class="title1">
+                        Reservations and Events 
+                        <div class="border1"></div>
+                    </h3>
+                    <p class="text1"> Offerring you  special features for special occassions for your special ones.
+                    </p>
+                    <a href="reservation.html" class="by" > Book-in </a>
+                </div>
+                <div class="imgContainer1 opacity">
+                    <img src="{% static 'images/sit.webp'%}" alt="food item">
+                </div>
+                <script src="{% static 'js/index.js' %}"></script>
+            </div>
+        </section>
 
-            <form action="/registration/" method="POST">
-                {% csrf_token %}
-                First Name <input type="text" , name='first_name'><br>
-                Last Name <input type="text" , name='last_name'><br>
-                E-mail <input type="text" name="email"><br>
-                Password <input type="password" name="password1"><br>
-                Confirm Password <input type="password" name="password2"><br>
-        
-                <input type="submit">
-            </form>
-
-
-
-            <div>
-                Already have an account? <a href="#">Log in</a>
-
+    <!---    <div class="centerbox">
+            <h2>Address</h2>
+                <div class="footnote">
+                    <div class="place">
+                        <span class="fas fa-map-marker-alt"></span>
+                        <span class="text">Kathmandu University,Kavre</span> <br>
+                    </div>
+                    <div class="phone">
+                        <span class="fas fa-phone-alt"></span>
+                        <span class="text"><br> +977-9860341062,+977-9862274823,+977-9860840845,+977-9863329511</span>
+                    </div>
+                    <div class="email">
+                        <a href="mailto:reservendine2020@gmail.com? subject=subject text"><span class="fas fa-envelope envelope"></span></a>
+                        <span class="text"> <strong> reservendine2020@gmail.com </strong> </span>
+                    </div>
+    
+                </div>
+        </div>
+    
+        <div class="right box">
+            <h2 class="footdo">Contact us</h2>
+            <div class="boxes">
+                <form action ="#">
+                    <div class="email">
+                        <div class="text">Email *</div>
+                        <input type="email" required>
+                    </div>
+                    <div class="msg">
+                        <div class="text">Message *</div>
+                        <textarea name="name" row="6" cols="60" required></textarea>
+                    </div>
+                    <button type="submit" class="send">Send</button>
+                    
+    
+                </form>
             </div>
         </div>
     </div>
-
-    <section>
-        <div class="shadow"></div>
-        <div class="container1">
-            <div class="content opacity">
-                <h3 class="title">
-                    Menu
-                    <div class="border"></div>
-                </h3>
-                <p class="text"> We Nepalese are famous for our diversity, along with diversity comes various local
-                    cuisines.
-                    Serving you few amazing dishes from our Nepali Cuisine.
-                </p>
-                <a href="#" class="ty"> Find More </a>
-            </div>
-            <div class="imgContainer opacity">
-                <img src="{% static 'images/fod.webp' %}" alt="food item">
-            </div>
-            <div class="shadow1"></div>
-            <div class="content opacity1">
-                <h3 class="title1">
-                    Reservations and Events
-                    <div class="border1"></div>
-                </h3>
-                <p class="text1"> Offering you special features for special occassions for your special ones.
-                </p>
-                <a href="#" class="by"> Book-in </a>
-            </div>
-            <div class="imgContainer1 opacity">
-                <img src="{% static 'images/sit.webp'%}" alt="food item">
-            </div>
-            <script src="{% static 'js/index.js' %}"></script>
-            <div class="below">
-                <ul>
-                    <li> <a href=" https://www.facebook.com/siza.adhikari.7" target="blank">
-                            <i class="fab fa-facebook-5x">facebook</i>
-                        </a> </li>
-                    <li> <a href="https://instagram.com/reserve_n_dine?igshid=1itha2ff8ewp8" target="blank">
-                            <i class="fab fa-instagram-square">instagram</i>
-                        </a> </li>
-                </ul>
-            </div>
+-->
+    <div class="bottom">
+        <div class="copy">
+            <span class="credit" ><a href="/"> Reserve N' Dine </a></span>
+            <span class="far fa-copyright"></span><span>2020 All rights reserved</span>
+            <br>
+            <a href="https://www.facebook.com/siza.adhikari.7"><span class="fab fa-facebook facebook"></span></a>
+            <span class="text"> <strong> facebook </strong> </span>
+              <br>
+    
+                <a href="https://instagram.com/reserve_n_dine?igshid=1itha2ff8ewp8" span class="fab fa-instagram instagram">instagram</a> 
+                <span class="text"> <strong> Instagram </strong> </span>
+               
         </div>
-    </section>
+    </div>
 </body>
-
 </html>
+
+
+
+
+
+
+
+
+

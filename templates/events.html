@@ -1,4 +1,5 @@
 {% load static %}
+{% load cart %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,7 +8,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://kit.fontawesome.com/ad6dddada5.js" crossorigin="anonymous"></script>
   <script src="https://kit.fontawesome.com/98392c7a0e.js" crossorigin="anonymous"></script>
-  <link href="{% static 'css/event.css' %}" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
+  <link href="{% static 'css/event1.css' %}" rel="stylesheet">
   <title>Events </title>
 </head>
 
@@ -26,7 +28,7 @@
             <li> <a href="{% url 'items:menu' %}"> Menu </a></li>
             <li> <a href="index.html"> Reservations </a></li>
             <li> <a href="/events/"> Events </a></li>
-            <li> <a href="index.html"> Contact </a> </li>
+            <li> <a href="/contact/"> Contact </a> </li>
           </ul>
         </div>
       </div>
@@ -37,16 +39,27 @@
       {% if request.session.customer %}
       <button onclick="Wel()" class="ty" id="WEL"> LoggedIn </button>
       <a href="{% url 'payment:cart' %}" class="ty" id="WEL"> Cart
-          <i class="fas fa-cart-plus"></i>
-          </button>
-      <a href="/logout" class="ty" id="button"> LogOut</a>
-      {% else %}
-      <a href="{% url 'login' %}" class="ty" id="button"> LogIn </a>
-      <a href="{% url 'signup' %}" class="ty" id="button1"> SignUp</a>
-      {% endif %}
-      
-      <button onclick="Appear()" class="ty" id="button3"> Reservations </button>
-  </div>
+        <i class="fas fa-cart-plus"></i>
+        <span>
+          {% if request.session.cart and request.session.cart_events %}
+            {{ cart_book_events|first_arg:request.session.cart_events|second_arg:cart_items|count:request.session.cart }}
+          {% elif request.session.cart %}
+            {{ cart_items|count_item:request.session.cart }}
+          {% elif request.session.cart_events %}
+            {{ request.session.cart_events|count_event }}
+          {% else %}
+                  0
+          {% endif %}
+        </span>
+      </a>
+        <a href="/logout" class="ty" id="button"> LogOut</a>
+        {% else %}
+        <a href="{% url 'login' %}" class="ty" id="button"> LogIn </a>
+        <a href="{% url 'signup' %}" class="ty" id="button1"> SignUp</a>
+        {% endif %}
+
+        <a href="reservation.html" class="ty"> Reservations </a>
+    </div>
     <div class=" container showcase-inner">
       <h1> EVENTS </h1>
       <p>
@@ -69,43 +82,41 @@
       </ul>
     </div>
   </header>
-  <div class="container">
+  <div class="starter">
 
     <a name="Birthday" class="starter1"> Birthday </a>
+    <div id="a1" class="container">
+      {% for event in events %}
+      {% if event.name == 'Birthday' %}
+      <div class="card1" id="{{ event.id }}">
+        <img src="{{ event.event_image.url }}" alt="{{ event.name }}" class="card_image">
 
-    {% for event in events %}
-    {% if event.name == 'Birthday' %}
-    <div class="card1" id="{{ event.id }}">
-      <img src="{{ event.event_image.url }}" alt="{{ event.name }}" class="card_image">
-
-      <div class="card_content">
-        <h2> {{ event.decoration_type }} </h2>
-      </div>
-      <div class="description">
-        Rs.{{ event.decoration_cost }} Extra
-      </div>
+        <div class="card_content">
+          <h2> {{ event.decoration_type }} </h2>
+        </div>
+        <div class="description">
+          Rs.{{ event.decoration_cost }} Extra
+        </div>
 
 
-      <div class="information">
-        <!--<input type="button" value="Description" onclick="Gold()" id="describe">-->
-        <!--<a href="#" class="ordernow">Add to Cart </a>-->
-        Description
+        <div class="information">Description</div>
+        <div class="hideinfo">{{ event.decoration_description }}</div>
+        <div class="order">
+          {% if event|is_in_cart_events:request.session.cart_events %}
+          <button id="ordernow1">Added to Cart</button>
+          {% else %}
+          <form action="#{{ event.id }}" method="POST">
+            {% csrf_token %}
+            <input hidden type="text" name="event" value="{{ event.id }}">
+            <input type="submit" value="Add to Cart" onclick="call1()" id="ordernow1">
+          </form>
+          {% endif %}
+          <!--<a href="#" class="ordernow">Add to Cart </a>-->
+        </div>
       </div>
-      <div class=hideinfo>
-        {{ event.decoration_description }}
-      </div>
-      <div class="order">
-        <form action="#{{ event.id }}" method="POST">
-          {% csrf_token %}
-          <input hidden type="text" name="event" value="{{ event.id }}">
-          <input type="submit" value="Add to Cart" onclick="call1()" id="ordernow1">
-        </form>
-        <!--<a href="#" class="ordernow">Add to Cart </a>-->
-      </div>
+      {% endif %}
+      {% endfor %}
     </div>
-    {% endif %}
-    {% endfor %}
-
   </div>
 
   <div class="maincourse">
@@ -125,20 +136,18 @@
         </div>
 
 
-        <div class="information">
-          <!--<input type="button" value="Description" onclick="Gold()" id="describe">-->
-          <!--<a href="#" class="ordernow">Add to Cart </a>-->
-          Description
-        </div>
-        <div class=hideinfo>
-          {{ event.decoration_description }}
-        </div>
+        <div class="information">Description</div>
+        <div class="hideinfo">{{ event.decoration_description }}</div>
         <div class="order">
+          {% if event|is_in_cart_events:request.session.cart_events %}
+          <button id="ordernow1">Added to Cart</button>
+          {% else %}
           <form action="#{{ event.id }}" method="POST">
             {% csrf_token %}
             <input hidden type="text" name="event" value="{{ event.id }}">
             <input type="submit" value="Add to Cart" onclick="call1()" id="ordernow1">
           </form>
+          {% endif %}
           <!--<a href="#" class="ordernow">Add to Cart </a>-->
         </div>
       </div>
@@ -149,7 +158,7 @@
 
       <a name="Date" class="drink1"> Date </a>
 
-      <div id="b1" class="container">
+      <div id="c1" class="container">
 
         {% for event in events %}
         {% if event.name == 'Date' %}
@@ -164,20 +173,18 @@
           </div>
 
 
-          <div class="information">
-            <!--<input type="button" value="Description" onclick="Gold()" id="describe">-->
-            <!--<a href="#" class="ordernow">Add to Cart </a>-->
-            Description
-          </div>
-          <div class=hideinfo>
-            {{ event.decoration_description }}
-          </div>
+          <div class="information">Description</div>
+          <div class="hideinfo">{{ event.decoration_description }}</div>
           <div class="order">
+            {% if event|is_in_cart_events:request.session.cart_events %}
+            <button id="ordernow1">Added to Cart</button>
+            {% else %}
             <form action="#{{ event.id }}" method="POST">
               {% csrf_token %}
               <input hidden type="text" name="event" value="{{ event.id }}">
               <input type="submit" value="Add to Cart" onclick="call1()" id="ordernow1">
             </form>
+            {% endif %}
             <!--<a href="#" class="ordernow">Add to Cart </a>-->
           </div>
         </div>
@@ -185,7 +192,25 @@
         {% endfor %}
       </div>
     </div>
-    <script src="{% static 'js/description.js' %}"></script>
+  </div>
+  <div class="bottom">
+    <div class="copy">
+      <span class="credit"><a href="main.html"> Reserve N' Dine </a></span>
+      <span class="far fa-copyright"></span><span>2020 All rights reserved</span>
+      <br>
+      <a href="https://www.facebook.com/siza.adhikari.7"><span class="fab fa-facebook facebook"></span></a>
+      <span class="text"> <strong> facebook </strong> </span>
+      <br>
+
+      <a href="https://instagram.com/reserve_n_dine?igshid=1itha2ff8ewp8" span
+        class="fab fa-instagram instagram">instagram</a>
+      <span class="text"> <strong> Instagram </strong> </span>
+
+    </div>
+  </div>
+
+
+  <script src="{% static 'js/description.js' %}"></script>
 </body>
 
 </html>
