@@ -24,7 +24,7 @@
                     <ul>
                         <li> <a href="{% url 'index' %}"> Home </a></li>
                         <li> <a href="{% url 'items:menu' %}"> Menu </a></li>
-                        <li> <a href="index.html"> Reservations </a></li>
+                        <li> <a href="{% url 'reservation:reservation' %}"> Reservations </a></li>
                         <li> <a href="{% url 'events:events' %}"> Events </a></li>
                         <li> <a href="/contact/"> Contact </a> </li>
                     </ul>
@@ -42,7 +42,7 @@
         <button onclick="Wel()" class="ty" id="WEL"> LoggedIn </button>
         <a href="/logout" class="ty" id="button"> Log Out</a>
         {% endif %}
-        <a href="reservation.html" class="ty"> Reservations </a>
+        <a href="{% url 'reservation:reservation' %}" class="ty"> Reservations </a>
         </div>   
         <div class =" container showcase-inner">
            <h1>  WELCOME TO OUR SITE! </h1>
@@ -100,7 +100,7 @@
                     </h3>
                     <p class="text1"> Offerring you  special features for special occassions for your special ones.
                     </p>
-                    <a href="reservation.html" class="by" > Book-in </a>
+                    <a href="{% url 'reservation:reservation' %}" class="by" > Book-in </a>
                 </div>
                 <div class="imgContainer1 opacity">
                     <img src="{% static 'images/sit.webp'%}" alt="food item">

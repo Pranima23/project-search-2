@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
-    <link href="{% static 'css/button1.css' %}" rel="stylesheet">
+    <link href="{% static 'css/button.css' %}" rel="stylesheet">
     <link href="{% static 'css/contact.css' %}" rel="stylesheet">
     
     
@@ -26,7 +26,7 @@
                 <ul>
                     <li> <a href="{% url 'index' %}"> Home </a></li>
                     <li> <a href="{% url 'items:menu' %}"> Menu </a></li>
-                    <li> <a href="index.html"> Reservations </a></li>
+                    <li> <a href="{% url 'reservation:reservation' %}"> Reservations </a></li>
                     <li> <a href="{% url 'events:events' %}"> Events </a></li>
                     <li> <a href="/contact/"> Contact </a> </li>
                 </ul>
@@ -40,7 +40,7 @@
     {% if request.session.customer %}
     <button onclick="Wel()" class="ty" id="WEL"> LoggedIn </button>
     {% endif %}
-  <a href="reservation.html" class="ty"> Reservations </a>
+  <a href="{% url 'reservation:reservation' %}" class="ty"> Reservations </a>
   </div>   
   <!--contact details-->
     <h1>Contact us</h1>

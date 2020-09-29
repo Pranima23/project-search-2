@@ -26,7 +26,7 @@
           <ul>
             <li> <a href="{% url 'index' %}"> Home </a></li>
             <li> <a href="{% url 'items:menu' %}"> Menu </a></li>
-            <li> <a href="index.html"> Reservations </a></li>
+            <li> <a href="{% url 'reservation:reservation' %}"> Reservations </a></li>
             <li> <a href="/events/"> Events </a></li>
             <li> <a href="/contact/"> Contact </a> </li>
           </ul>
@@ -58,7 +58,7 @@
         <a href="{% url 'signup' %}" class="ty" id="button1"> SignUp</a>
         {% endif %}
 
-        <a href="reservation.html" class="ty"> Reservations </a>
+        <a href="{% url 'reservation:reservation' %}" class="ty"> Reservations </a>
     </div>
     <div class=" container showcase-inner">
       <h1> EVENTS </h1>
@@ -195,7 +195,7 @@
   </div>
   <div class="bottom">
     <div class="copy">
-      <span class="credit"><a href="main.html"> Reserve N' Dine </a></span>
+      <span class="credit"><a href="{% url 'index' %}"> Reserve N' Dine </a></span>
       <span class="far fa-copyright"></span><span>2020 All rights reserved</span>
       <br>
       <a href="https://www.facebook.com/siza.adhikari.7"><span class="fab fa-facebook facebook"></span></a>

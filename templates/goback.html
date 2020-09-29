@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <link href="{% static 'css/goback1.css' %}" rel="stylesheet">
+    <title> Reservation Message </title>
+</head>
+<body>
+    <h1 class="dis"> Your Reservation has been Successful!!! </h1>
+    <p class="also">You can also pre-order your meal for your reservation, and also have your table decorated according to Bithday, Anniversary and Date themes.</p>
+    <a href="{% url 'items:menu' %}" class="ty"> Pre-order food here  </a>
+    <a href="{% url 'events:events' %}" class="ty1"> Book events here  </a>
+    <a href="{% url 'index' %}" class="ty2"> Go to homepage  </a><br>
+
+
+
+    <div class="bottom">
+        <div class="copy">
+            <span class="credit" ><a href="{% url 'index' %}">Reserve N' Dine </a></span>
+            <span class="far fa-copyright"></span><span>2020 All rights reserved</span>
+        </div>
+    </div>
+</body>
+</html>
+
+
+<!--  Thakali Set <img src="/images/Thakali chi.jpg" alt="paneer-choila" class="card_image">-->

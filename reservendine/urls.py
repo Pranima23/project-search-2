@@ -24,6 +24,7 @@ urlpatterns = [
     path('', include('registration.urls')),
     path('events/', include('events.urls')),
     path('payment/', include('payment.urls')),
+    path('reservation/', include('reservation.urls')),
 ]
 
 if settings.DEBUG:

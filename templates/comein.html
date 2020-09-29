@@ -1,0 +1,27 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <link href="{% static 'css/comein.css' %}" rel="stylesheet">
+    <title> Reservation Message Invalid </title>
+</head>
+<body>
+    <h1 class="dis"> Reservation unsuccessful!!!</h1>
+    <p class="also">The table is packed. Please select another time and reserve again.</p>
+    <a href="{% url 'reservation:reservation' %}" class="ty"> Reserve again </a><br>
+    <a href="{% url 'index' %}" class="ty1"> Go to homepage </a>
+
+
+
+    <div class="bottom">
+        <div class="copy">
+            <span class="credit" ><a href="{% url 'index' %}">Reserve N' Dine </a></span>
+            <span class="far fa-copyright"></span><span> 2020 All rights reserved</span>
+        </div>
+    </div>
+</body>
+</html>

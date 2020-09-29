@@ -100,16 +100,19 @@ footer{
 }
 .right form .text{
     font-size: 1.0625rem;
+    color: white;
     margin-bottom: 2px;
     color: #656565;
 
 }
 .right form .msg{
     margin-top: 10px;
+    color: white;
 }
 .right form input, .right form textarea{
     width: 100%;
     font-size: 1.0625rem;
+    color: white;
     background: #151515;
     padding-left:10px ;
     border: 1px solid #222222;
@@ -122,6 +125,7 @@ footer{
 }
 .right form input{
     height:35px ;
+    color: white;
 }
 .right form .btn button{
     height: 40px;

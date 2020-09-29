@@ -1,0 +1,132 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="{% static 'js/reservation.js' %}" async=""></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
+    <link href="{% static 'css/newreservation.css' %}" rel="stylesheet">
+
+</head>
+
+<body>
+    <div class="menu-wrap">
+        <input type="checkbox" class="toggler">
+        <!--Toggle only works with the checkbox so -->
+        <div class="hamburger">
+            <div></div>
+        </div>
+        <div class="menu">
+            <div>
+                <div>
+                    <ul>
+                        <li> <a href="{% url 'index' %}"> Home </a></li>
+                        <li> <a href="{% url 'items:menu' %}"> Menu </a></li>
+                        <li> <a href="{% url 'reservation:reservation' %}"> Reservations </a></li>
+                        <li> <a href="{% url 'events:events' %}"> Events </a></li>
+                        <li> <a href="/contact/"> Contact </a> </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <header class="showcase">
+        <div class="navbar">
+            {% if not request.session.customer %}
+        <a href="{% url 'login' %}" class="ty" id="button"> LogIn </a>
+        <a href="{% url 'signup' %}" class="ty" id="button1"> SignUp</a>
+        {% else %}
+        <a href="#" class="ty" id="button"> LoggedIn</a>
+        <a href="/logout" class="ty" id="button"> Log Out</a>
+        {% endif %}
+            
+        </div>
+        <div class=" container showcase-inner">
+            <h1> Reservations</h1>
+            <p>
+                We bring you an opportunity to enjoy the essence of an interactive website. You can check the date from
+                the calendar,
+                enjoy the facility of choosing the table according to the number of the people and book your date and
+                time from the
+                calendar.
+                Here, we allow you to use the customaizable theme that you can use for the special occassion
+                to make your special one more special and make those moments special.
+            </p>
+            <a href="#" class="butn"> Scroll Down </a>
+            <h1 class="for">Select the Table For:</h1>
+            <select class="select" name="no_of_people" form="Reservation-form" required>
+                <option value=""> Select from here </option>
+                <option value="2">Table For 2 </option>
+                <option value="4"> Table For 4 </option>
+                <option value="6"> Table For 6 </option>
+                <option value="8"> Table For 8 </option>
+                <option value="10"> Table For 10 </option>
+            </select>
+        </div>
+    </header>
+    
+    <div class="main_Content">
+
+        <h1 class="res"> Make a reservation </h1>
+
+        <!--<p class ="menuu3"> <a href="final.html"> Final Reservation </a></p> -->
+
+
+        <!-- Div 3:  Reservation Form -->
+        <form id="Reservation-form" action="" method="POST">
+
+            {% csrf_token %}
+
+            <!-- Input Div -->
+            <div class="input-div">
+                <label for="id_check_in">Check In:</label>
+                <input type="datetime-local" id="id_check_in" name="check_in" required>
+
+
+                <label for="id_check_out">Estimated Check Out:</label>
+                <input type="datetime-local" id="id_check_out" name="check_out" required>
+
+
+                <!-- Input Div -->
+                <div>
+                    <button type="submit" class="book">Book the table</button>
+                </div>
+
+        </form>
+
+    </div> <!-- END Reservation Div -->
+    
+    <!--Menu Button -->
+    <div class="menu_btn">
+        <h1 class="menuu"> Menu </h1>
+        <p class="menuu1"> <a href="{% url 'items:menu' %}">Pre-order </a></p>
+    </div>
+
+    <div class="payment-section">
+        <p class="mypara1"> Events </p>
+        <p class="menuu2"> <a href="{% url 'events:events' %}"> Book Event</a></p>
+    </div>
+
+
+    <div class="bottom">
+        <div class="copy">
+            <span class="credit"><a href="/"> Reserve N' Dine </a></span>
+            <span class="far fa-copyright"></span><span>2020 All rights reserved</span>
+            <br>
+        </div>
+        <!--- <a href="https://www.facebook.com/siza.adhikari.7"><span class="fab fa-facebook facebook"></span></a>
+                      <span class="text"> <strong> facebook </strong> </span>
+                        <br>
+                
+    
+                <a href="https://instagram.com/reserve_n_dine?igshid=1itha2ff8ewp8" span class="fab fa-instagram instagram"></spam></a> 
+                <span class="text"> <strong> Instagram </strong> </span>
+                    </div>
+                    </div>
+                -->
+                
+</body>
+
+</html>

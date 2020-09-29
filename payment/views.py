@@ -4,12 +4,23 @@ from items.models import Item, Order, OrderDetails
 from events.models import Event, BookEvent
 from registration.models import *
 from django.contrib import messages
+from django.core.mail import send_mail
+from django.conf import settings
 
 # Create your views here.
 def cart(request):
     if request.method=='POST':
+        #to submit feedback form
+        if request.POST.get('todo')=='form':
+            message = request.POST.get('msg')            
+            send_mail('Feedback',
+            message,            
+            settings.EMAIL_HOST_USER, 
+            ['reservendine2020@gmail.com'],           
+            fail_silently=False)
+            return redirect('/payment/cart/')
         #to remove item from cart
-        if request.POST.get('todo') == 'remove':
+        elif request.POST.get('todo') == 'remove':
             cart = request.session.get('cart')
             remove_item = request.POST.get('item')
             if cart:
@@ -104,7 +115,7 @@ def pay(request):
                 )
             booked_event.save()
             request.session['cart_events'] = []
-        messages.info(request, "Transaction successful!")
+        messages.info(request, "Your order has been saved!")
         return render(request, 'final.html')
     else:
         return render(request, 'final.html')

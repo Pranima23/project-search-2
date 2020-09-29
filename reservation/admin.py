@@ -3,11 +3,11 @@ from .models import *
 
 
 class TableAdmin(admin.ModelAdmin):
-    list_display = ('number', 'capacity')
+    list_display = ('table_number', 'capacity')
 
 
 class ReservationAdmin(admin.ModelAdmin):
-    list_display = ('customer', 'number_of_people')
+    list_display = ('customer', 'table', 'number_of_people', 'check_in', 'check_out')
 
 
 admin.site.register(Table, TableAdmin)
