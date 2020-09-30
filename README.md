@@ -25,6 +25,10 @@ Things accomplished:
     Also, kept related models (already created and messed up in items app)in the related apps
 
 4. signup, login and logout added
-left: reset password feature in login, invalid entry message at invalid entry
+left: reset password feature in login
 
-5. some functions related to cart
+5. cart functions
+
+6. reservation functions
+
+7. feedback system
