@@ -3,7 +3,7 @@ from .models import *
 
 
 class EventAdmin(admin.ModelAdmin):
-    list_display = ('name', 'decoration_type', 'decoration_cost', 'decoration_description')
+    list_display = ('name', 'decoration_type', 'decoration_cost', 'decoration_description', 'event_image')
 
 
 class BookEventAdmin(admin.ModelAdmin):

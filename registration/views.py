@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponseRedirect
 from django.http import HttpResponse
 from .models import Customer
 from django.contrib.auth.models import User, auth
@@ -46,7 +46,14 @@ def signup(request):
 
 
 def login(request):
-    if request.method=='POST':
+    
+    
+    if request.method=='GET':
+        return_url = request.GET.get('return_url')
+        request.session['payment_url'] = return_url
+        print('returned url', return_url)
+        return render(request, 'login.html')
+    elif request.method=='POST':
         #getting login credentials
         email = request.POST['email']
         password = request.POST['password']
@@ -55,7 +62,8 @@ def login(request):
         if not Customer.objects.get(email=email):
             customer = None
         else:
-            customer = Customer.objects.get(email=email)
+            if Customer.objects.get(email=email):
+                customer = Customer.objects.get(email=email)
         if customer:
             #checking if password matches
             if password == customer.password:
@@ -63,7 +71,16 @@ def login(request):
                 request.session['email'] = customer.email
                 print(request.session['email'])
                 print(request.session['customer'])
-                return redirect('/')
+               
+                if request.session.get('payment_url'):
+                    return_url = request.session.get('payment_url')
+                    print(return_url)
+                    return HttpResponseRedirect(return_url)
+                else:
+                    request.session['payment_url'] = None
+                    return_url = None
+                    return redirect('/')
+               
             else:
                 messages.error(request, 'Invalid email or password!')
                 return redirect('login')
@@ -71,8 +88,7 @@ def login(request):
             messages.error(request, 'Invalid email or password!')
             return redirect('login')
 
-    else:
-        return render(request, 'login.html')
+    
 
 
 def logout(request):

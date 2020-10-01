@@ -5,11 +5,13 @@ from registration.models import Customer
 from .reservation_function.availability import check_availability
 from .form import AvailabilityForm
 from django.contrib import messages
+from registration.middlewares.auth import auth_middleware
 
 
-
+@auth_middleware
 # Create your views here.
 def reservation(request):
+    
     if request.method=='POST':
         customer = request.session.get('customer')
         no_of_people = (request.POST.get('no_of_people'))

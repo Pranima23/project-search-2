@@ -40,7 +40,9 @@
     <!-- For the hamburger menu -->
 
     <div class="navbar">
+        {% if request.session.customer %}
         <button onclick="Wel()" class="ty" id="WEL"> LoggedIn </button>
+        {% endif %}
         <a href="" class="ty" id="WEL"> Cart
             <i class="fas fa-cart-plus"></i>
             

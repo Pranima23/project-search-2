@@ -42,25 +42,26 @@
     <div class="navbar">
       {% if request.session.customer %}
       <button onclick="Wel()" class="ty" id="WEL"> LoggedIn </button>
-      <a href="{% url 'payment:cart' %}" class="ty" id="WEL"> Cart
-        <i class="fas fa-cart-plus"></i>
-        <span>
-          {% if request.session.cart and request.session.cart_events %}
-            {{ cart_book_events|first_arg:request.session.cart_events|second_arg:items|count:request.session.cart }}
-          {% elif request.session.cart %}
-            {{ cart_items|count_item:request.session.cart }}
-          {% elif request.session.cart_events %}
-            {{ request.session.cart_events|count_event }}
-          {% else %}
-            0
-          {% endif %}
-        </span>
-      </a>
+      
         <a href="/logout" class="ty" id="button"> LogOut</a>
         {% else %}
         <a href="{% url 'login' %}" class="ty" id="button"> LogIn </a>
         <a href="{% url 'signup' %}" class="ty" id="button1"> SignUp</a>
         {% endif %}
+        <a href="{% url 'payment:cart' %}" class="ty" id="WEL"> Cart
+          <i class="fas fa-cart-plus"></i>
+          <span>
+            {% if request.session.cart and request.session.cart_events %}
+              {{ cart_book_events|first_arg:request.session.cart_events|second_arg:items|count:request.session.cart }}
+            {% elif request.session.cart %}
+              {{ cart_items|count_item:request.session.cart }}
+            {% elif request.session.cart_events %}
+              {{ request.session.cart_events|count_event }}
+            {% else %}
+              0
+            {% endif %}
+          </span>
+        </a>
 
         <a href="{% url 'reservation:reservation' %}" class="ty"> Reservations </a>
     </div>

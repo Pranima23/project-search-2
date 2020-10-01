@@ -6,6 +6,8 @@ from registration.models import *
 from django.contrib import messages
 from django.core.mail import send_mail
 from django.conf import settings
+from registration.middlewares.auth import auth_middleware
+from django.utils.decorators import method_decorator
 
 # Create your views here.
 def cart(request):
@@ -76,8 +78,9 @@ def cart(request):
     else:
         return render(request, 'cart.html')
 
-
+@auth_middleware
 def pay(request):
+    
     if request.method == 'POST':
         #getting customer info
         customer = request.session.get('customer')
@@ -118,4 +121,5 @@ def pay(request):
         messages.info(request, "Your order has been saved!")
         return render(request, 'final.html')
     else:
+        
         return render(request, 'final.html')

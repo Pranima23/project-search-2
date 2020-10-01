@@ -6,7 +6,9 @@ from events.models import *
 
 
 # Create your views here.
+
 def index(request):
+    
     if request.method == 'POST':
         cart = request.session.get('cart')
         item = request.POST.get('item')
